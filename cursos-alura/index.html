@@ -1,0 +1,160 @@
+<!-- Atributo role
+Serve para atribuir um valor semantico diferente à um componente, por exemplo
+caso tenhamos que definir um label de um formulário através de um span ou que um link
+tenha o comportamento de um botão, usamos a tag role para dizer ao navegador o tipo do elemento -->
+
+<!-- Caso haja necessidade de esconder algum elemento com display: none, esse será escondido também
+do leitor de tela, nesses casos deve ser pensada em alguma alternativa caso a informação seja necessária -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<!-- Cuidado para não travar o zoom do usuário em dispositivos mobile, nunca declarar
+	maximum-scale e user-scalable=no -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Acessibilidade</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<!-- Criamos um link que pula direto para o conteúdo quando o usuário pressionar o Tab assim
+	que o site for carregado, esse link deve enviar o usuário para um item com a role main -->
+	<a href="#conteudoPrincipal">Pular para conteúdo principal</a>
+	<header class="cabecalho container">
+		<a href="#" class="cabecalho-logo" title="Home Apeperia">Acessibilidade</a>
+		<nav class="cabecalho-nav">
+			<ul>
+				<li class="cabecalho-nav-item"><a href="#">Sobre</a></li>
+				<li class="cabecalho-nav-item"><a href="#">Planos</a></li>
+				<li class="cabecalho-nav-item"><a href="#">Blog</a></li>
+				<li class="cabecalho-nav-item"><a href="#">Destaques</a></li>
+				<li class="cabecalho-nav-item"><a href="#">Institucional</a></li>
+				<li class="cabecalho-nav-item"><a href="#">Contato</a></li>
+			</ul>
+		</nav>
+	</header>
+	<!-- O role é usado para mudar a semântica de um elemento, uma div por exemplo poderia virar um button,
+	no caso dizemos ao item .conteudo que este é o bloco principal da página, onde o conteúdo se encontra -->
+	<main class="conteudo" role="main" id="conteudoPrincipal">
+		<section class="secaoDestaque">
+			<h1 class="secaoDestaqueTitulo">Aplicativos na Medida</h1>
+			<h2 class="secaoDestaqueTexto">A Apeperia é uma startup com um jeito inovador de comprar e montar
+				aplicativos mobile e web para pequenas e médias empresas</h2>
+			<button class="secaoDestaqueBotao">Conheça os planos</button>
+		</section>
+		<section class="secaoDestaques">
+			<div class="container">
+				<h2 class="secaoDestaques-titulo tituloPadrao">DESTAQUES</h2>
+				<!-- Para informarmos ao leitor de tela que a legenda do bloco é a figcaption,
+				usandos no link a marcação aria-labelledby passando um ID -->
+				<a href="http://blog.apeperia.com.br/design/conheca-primeiras-etapas-criacao-logotipo-teste-teste"
+					class="secaoDestaques-link" aria-labelledby="tituloDestaque">
+					<!-- Uma imagem que acompanha um texto deve ser declarada semanticamente pelo elemento figure,
+					além disso deve ser descrita pelo componente figcaption -->
+					<figure class="secaoDestaques-destaque">
+						<img src="apeperia/img/comecando-criar-logotipo.png" class="secaoDestaques-destaque-img"
+							alt="Ferramentas de designer, ilustração">
+						<figcaption class="secaoDestaques-destaque-titulo" id="tituloDestaque">
+							Conheça as primeiras etapas na criação de um logotipo
+						</figcaption>
+					</figure>
+				</a>
+			</div>
+		</section>
+		<section class="secaoContato">
+			<div class="container">
+				<h2 class="tituloPadrao">CONTATO</h2>
+				<form class="secaoContato-form">
+					<p class="secaoContato-form-legend">
+						Oi, tudo bem? Fale com a gente!
+						Preencha seus dados e sua mensagem:
+					</p>
+					<!-- O label não apenas associa um nome ao formulário como também define a informação que
+					será dita pelo leitor de tela, é importante pois muitas vezes o placeholder não contém
+					informação necessária para que o usuário saiba o que deve ser preenchido no campo -->
+					<div class="contatoCampo">
+						<label for="nome">Nome: </label>
+						<input type="text" id="nome" class="contatoCampo" placeholder="Digite seu nome" required>
+					</div>
+					<div class="contatoCampo">
+						<label for="email">Email: </label>
+						<input type="email" id="email" class="contatoCampo" placeholder="Digite seu e-mail" required>
+						<span class="contatoCampo-msg">
+							Você quis dizer <a href="#">gmail.com?</a>
+						</span>
+					</div>
+					<div class="contatoCampo">
+						<label for="telefone">Telefone: </label>
+						<input type="text" id="telefone" class="contatoCampo" placeholder="Digite seu telefone">
+						<span class="contatoCampo-msg">Faltou o DDD</span>
+					</div>
+					<div class="contatoCampo">
+						<label for="cep">CEP: </label>
+						<input type="text" id="cep" maxlength="8" placeholder="Exemplo: 04101-300" required>
+					</div>
+					<!-- Devemos usar readonly e não disable nos campos, pois o disable é ignorado pelo
+					leitor de tela, já o readonly continua fazendo com que o campo seja focado pelo leitor
+					e mesmo assim limita a edição do usuário -->
+					<div class="contatoCampo">
+						<label>Endereço: </label>
+						<input type="text" class="contatoCampo-campoDesabilitado" readonly value="Rua Vergueiro">
+					</div>
+					<div class="contatoCampo">
+						<label>Bairro: </label>
+						<input type="text" class="contatoCampo-campoDesabilitado" readonly value="Vila Mariana">
+					</div>
+					<div class="contatoCampo">
+						<label>Cidade: </label>
+						<input type="text" class="contatoCampo-campoDesabilitado" readonly value="São Paulo">
+					</div>
+					<div class="contatoCampo">
+						<label>Estado: </label>
+						<input type="text" class="contatoCampo-campoDesabilitado" readonly value="SP">
+					</div>
+					<div class="contatoCampo">
+						<label for="mensagem">Mensagem: </label>
+						<textarea name="" id="mensagem" cols="30" rows="10" required></textarea>
+					</div>
+					<div class="contatoCampo">
+						<input type="checkbox" checked value="receberDestaques" class="contatoCampo-checkbox"
+							id="receberEmail">
+						<label class="contatoCampo-label" for="receberEmail">Receber destaques por email</label>
+					</div>
+					<div class="contatoCampo">
+						<button class="secaoContato-form-cta btnPadrao" type="submit">
+							Enviar mensagem
+						</button>
+						<span class="contatoCampo-msg secaoContatoForm-validacao">
+							Verifique os erros acima
+						</span>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+	<footer class="rodape">
+		<div class="container">
+			<ul class="rodape-social">
+				<li>
+					<a href="#" class="rodape-social-link rodape-social-link--facebook">
+						Facebook da Apeperia
+					</a>
+				</li>
+				<li>
+					<a href="#" class="rodape-social-link rodape-social-link--twitter">
+						Twitter da Apeperia
+					</a>
+				</li>
+				<li>
+					<a href="#" class="rodape-social-link rodape-social-link--instagram">
+						Instagram da Apeperia
+					</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+
+</html>
